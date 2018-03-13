@@ -1,6 +1,5 @@
 const gameCanvas = document.getElementById("game");
 const ctx = gameCanvas.getContext("2d");
-let paused = false;
 
 window.addEventListener("resize", resize);
 
@@ -14,6 +13,8 @@ resize();
 
 function draw() {
   console.log("Drawing the game");
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
 }
 
 module.exports = {
@@ -21,13 +22,13 @@ module.exports = {
 }
 
 function init(eventBus) {
-  eventBus.on("startGame", drawGameWindow);
+  eventBus.on("startGame", startDrawing);
 }
 
-function drawGameWindow() {
-  ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
-  while (!paused) {
+function startDrawing() {
+  function drawLoop(timeStamp) {
     draw();
+    window.requestAnimationFrame(drawLoop);
   }
+  drawLoop();
 }

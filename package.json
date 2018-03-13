@@ -1,0 +1,30 @@
+{
+  "name": "drykenspel",
+  "version": "0.1.0",
+  "description": "A top-down RPG.",
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.11",
+    "webpack-dev-server": "^3.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Trymunx/drykenspel.git"
+  },
+  "author": "Tymunx",
+  "contributors": [
+    "Trymunx",
+    "Alpvax <development@alpvax.uk> (http://alpvax.uk)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Trymunx/drykenspel/issues"
+  },
+  "homepage": "https://github.com/Trymunx/drykenspel#readme"
+}
