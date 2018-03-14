@@ -1,7 +1,9 @@
 import EventEmitter from "events";
+import ServerWorker from "worker-loader!./serverWorker.js"
 
 export default class Client {
-  constructor() {
+  constructor(canvasElement) {
+    this.canvas = canvasElement;
     this.gameBus = new EventEmitter();
     this.setScene(/*TODO: main menu scene*/)
   }
@@ -18,6 +20,6 @@ export default class Client {
     loop(performance.now());
   }
   newLocalServer() {
-    let serverWorker = Worker("./serverWorker.js");
+    let serverWorker = new ServerWorker();
   }
 }
