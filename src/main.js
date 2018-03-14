@@ -1,10 +1,6 @@
-import render from "./render";
-import game from "./game";
-import EventEmitter from "events";
+import Client from "./client";
 
-const eventBus = new EventEmitter();
+const ticks_per_second = 30;
 
-render.init(eventBus);
-game.init(eventBus);
-
-eventBus.emit("startGame");
+const client = new Client();
+client.start();
