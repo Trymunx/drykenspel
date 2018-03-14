@@ -1,5 +1,6 @@
 import NetworkHandler from "../network";
 import EventEmitter from "events";
+import ServerWorker from "worker-loader!./serverWorker.js"
 
 class ClientNetworkHandler extends NetworkHandler {
   constructor(gameBus) {
@@ -18,7 +19,8 @@ class ClientNetworkHandler extends NetworkHandler {
 }
 
 export default class Client {
-  constructor() {
+  constructor(canvasElement) {
+    this.canvas = canvasElement;
     this.gameBus = new EventEmitter();
     this.networkHandler = new ClientNetworkHandler(this.gameBus);
     this.setScene(/*TODO: main menu scene*/)
@@ -36,6 +38,6 @@ export default class Client {
     loop(performance.now());
   }
   newLocalServer() {
-    let serverWorker = Worker("./serverWorker.js");
+    let serverWorker = new ServerWorker();
   }
 }

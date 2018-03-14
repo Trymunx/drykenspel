@@ -3,6 +3,7 @@ import EventEmitter from "events";
 
 export default class GameServer {
   constructor(interval) {
+    this.internal = self instanceof WorkerGlobalScope;
     this.tps = 30;
     this.interval = interval;
     this.gameBus = new EventEmitter();
