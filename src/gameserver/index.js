@@ -9,6 +9,7 @@ export default class GameServer {
     this.gameBus = new EventEmitter();
     this.networkHandler = new ServerNetworkHandler(this.gameBus);
     this.running = false;
+    this.worlds = new Map();
   }
   update() {
     //TODO: run game updates
@@ -43,6 +44,10 @@ export default class GameServer {
   stop()
   {
     this.running = false;
+  }
+  connect(playerData, observer) {
+    //TODO: get world and implement
+    observer.sendMessage({type: "connect", data: "TODO: send connection data"});
   }
   save() {
     //TODO: save

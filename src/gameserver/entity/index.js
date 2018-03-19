@@ -27,4 +27,10 @@ export default class Entity {
   update() {
     this.setPosition(this.getPosition(1));
   }
+  get observerRange() {
+    return -1;
+  }
+  get static() {
+
+  }
 }
