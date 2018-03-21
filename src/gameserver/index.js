@@ -1,6 +1,5 @@
 /*globals WorkerGlobalScope: false */
 
-import NetworkHandler from "../network";
 import EventEmitter from "events";
 
 let obj = {pos: {x:0, y:50}, move: {x: 3, y:0}};
@@ -11,7 +10,6 @@ export default class GameServer {
     this.tps = 30;
     this.interval = interval;
     this.gameBus = new EventEmitter();
-    this.networkHandler = new ServerNetworkHandler(this.gameBus);
     this.running = false;
     this.worlds = new Map();
     this.paused = false;
@@ -33,7 +31,7 @@ export default class GameServer {
     let nextTick = performance.now();
     const performLoop = () => {
       while(performance.now() > nextTick) {
-        this.networkHandler.sendToClients("scene", {timeStamp: nextTick, skip: skipTicks, toRender: this.update()});
+        //TODO:this.networkHandler.sendToClients("scene", {timeStamp: nextTick, skip: skipTicks, toRender: this.update()});
         nextTick += skipTicks;
       }
     };
@@ -63,23 +61,5 @@ export default class GameServer {
   }
   load() {
     //TODO:save
-  }
-}
-
-class ServerNetworkHandler extends NetworkHandler {
-  constructor(gameBus) {
-    super(gameBus);
-    this.clients = new Set();
-    this.eventBus.on("connect", this.connectClient);
-  }
-  connectClient(clientData) {
-    this.clients.add(clientData);
-  }
-  sendToClients(key, data, filter) {
-    this.clients.forEach((clientData) => {
-      if(!filter || filter(clientData)) {
-        clientData.networkHandler.handlePacket(this.transformPacket(key, data));
-      }
-    });
   }
 }

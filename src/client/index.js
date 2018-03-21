@@ -1,28 +1,11 @@
-import NetworkHandler from "../network";
 import EventEmitter from "events";
 import Scene from "./render/scene";
 import ServerWorker from "worker-loader!./serverWorker.js";
-
-class ClientNetworkHandler extends NetworkHandler {
-  constructor(gameBus) {
-    super(gameBus);
-    this.serverNetHandler;
-    this.eventBus.on("connect", this.connectClient);
-  }
-  connectClient(serverConnection) {
-    this.serverNetHandler = serverConnection.networkHandler;
-    this.sendToServer("connect", Object.assign({}, serverConnection.thisClient, {networkHandler: this}));
-  }
-  sendToServer(key, data) {
-    this.serverNetHandler.handlePacket(this.transformPacket(key, data));
-  }
-}
 
 export default class Client {
   constructor(canvasElement) {
     this.canvas = canvasElement;
     this.gameBus = new EventEmitter();
-    this.networkHandler = new ClientNetworkHandler(this.gameBus);
     this.gameBus.on("scene", (sceneData) => this.setScene(new Scene(sceneData)));
     this.setScene(/*TODO: main menu scene*/);
   }
