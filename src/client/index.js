@@ -1,5 +1,6 @@
 import NetworkHandler from "../network";
 import EventEmitter from "events";
+import Scene from "./render/scene";
 import ServerWorker from "worker-loader!./serverWorker.js";
 
 class ClientNetworkHandler extends NetworkHandler {
@@ -12,8 +13,7 @@ class ClientNetworkHandler extends NetworkHandler {
     this.serverNetHandler = serverConnection.networkHandler;
     this.sendToServer("connect", Object.assign({}, serverConnection.thisClient, {networkHandler: this}));
   }
-  sendToServer(key, data)
-  {
+  sendToServer(key, data) {
     this.serverNetHandler.handlePacket(this.transformPacket(key, data));
   }
 }
@@ -23,10 +23,12 @@ export default class Client {
     this.canvas = canvasElement;
     this.gameBus = new EventEmitter();
     this.networkHandler = new ClientNetworkHandler(this.gameBus);
-    this.setScene(/*TODO: main menu scene*/)
+    this.gameBus.on("scene", (sceneData) => this.setScene(new Scene(sceneData)));
+    this.setScene(/*TODO: main menu scene*/);
   }
   setScene(scene) {
     this.scene = scene;
+    console.log("Scene: ", this.scene);
   }
   start() {
     let ctx = this.canvas.getContext("2d");
