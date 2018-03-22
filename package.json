@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "description": "A top-down RPG.",
   "main": "main.js",
-  "dependencies": {},
+  "dependencies": {
+    "@firebase/firestore": "^0.3.6",
+    "firebase": "^4.12.0"
+  },
   "devDependencies": {
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.11",
