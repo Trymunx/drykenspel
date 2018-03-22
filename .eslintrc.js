@@ -7,6 +7,9 @@ module.exports = {
   "parserOptions": {
     "sourceType": "module"
   },
+  "globals": {
+    "firebase": false
+  },
   "rules": {
     "indent": [
       "error",
