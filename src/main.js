@@ -29,8 +29,13 @@ firebase.initializeApp({
 });
 
 document.getElementById("game").addEventListener("click", () => {
-  console.log("LOGGING IN:alpvax@netscape.net");
-  firebase.auth().signInWithEmailAndPassword("alpvax@netscape.net", "password");
+  if(firebase.auth().currentUser) {
+    console.log("LOGGING OUT");
+    firebase.auth().signOut();
+  } else {
+    console.log("LOGGING IN:alpvax@netscape.net");
+    firebase.auth().signInWithEmailAndPassword("alpvax@netscape.net", "password");
+  }
 });
 
 let client = null;
@@ -43,13 +48,27 @@ firebase.auth().onAuthStateChanged((user) => {
     });
     client.start();
     client.newLocalServer();
-  } else {
-    client.quit();
+    //TODO: display client
     let canvas = document.getElementById("game");
     let ctx = canvas.getContext("2d");
-    let size = canvas.height * 0.2;
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    let size = canvas.height * 0.05;
     ctx.font = size + "px Arial";
-    ctx.fillText("Log in to continue!",10, (canvas.height + size) / 2);
+    ctx.fillStyle = "red";
+    ctx.fillText("Logged in as " + user.email, 10, (canvas.height + size) / 2);
+  } else {
+    if(client) {
+      client.close();
+    }
+    let canvas = document.getElementById("game");
+    let ctx = canvas.getContext("2d");
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    let size = canvas.height * 0.1;
+    ctx.font = size + "px Arial";
+    ctx.fillStyle = "red";
+    ctx.fillText("Log in to continue!", 10, (canvas.height + size) / 2);
     //LOGGED OUT!
   }
 });
