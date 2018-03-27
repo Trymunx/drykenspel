@@ -19,7 +19,7 @@ body {
 #login-window {
   width: 100%;
   height: 100%;
-  background-color: #2f2f2f;
+  background-color: #5bad2b44;
   display: hidden;
   position: absolute;
   display: flex;
@@ -29,25 +29,25 @@ body {
 
 #login-dialogue {
   width: 300px;
-  height: 180px;
-  display: inline-flex;
+  height: 220px;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 10px;
   margin: 16px;
   background-color: #191919;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 #welcome-message {
-  margin: 24px 10px;
+  margin: 16px 10px 24px;
   font-size: 1.2em;
 }
 
 #forgot-password {
   color: #8b8b8b;
-  font-size: 0.72em;
+  font-size: 0.75em;
   margin-left: auto;
   margin-right: 40px;
 }
@@ -76,7 +76,6 @@ input::selection {
 }
 
 #username {
-  margin-top: auto;
 }
 
 #userPassword {
