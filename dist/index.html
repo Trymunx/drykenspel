@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 </head>
+
 <body>
-  <canvas id="game"/>
+  <div id="login-window">
+    <div id="login-dialogue">
+      <div id="welcome-message">Welcome to Drykenspel</div>
+      <input id="username" placeholder="Username" spellcheck="false" maxlength="20">
+      <input id="userPassword" type="password">
+      <a href="https:google.com/search?q=Define+unlucky" id="forgot-password">Forgotten your password?</a>
+    </div>
+  </div>
+  <canvas id="game" />
   <script src="main.js"></script>
 </body>
+
 </html>
