@@ -13,13 +13,50 @@
   <div id="login-window">
     <div id="login-dialogue">
       <div id="welcome-message">Welcome to Drykenspel</div>
-      <input id="username" placeholder="Username" spellcheck="false" maxlength="20">
-      <input id="userPassword" type="password">
-      <a href="https:google.com/search?q=Define+unlucky" id="forgot-password">Forgotten your password?</a>
+
+      <div id="login-form">
+        <form class="login-form">
+          <input class="username" placeholder="Username" spellcheck="false" maxlength="20">
+          <input class="userPassword" type="password">
+          <a href="https:google.com/search?q=Define+unlucky" id="forgot-password">Forgotten your password?</a>
+          <input type="submit" value="Login" class="login-button">
+        </form>
+        <hr>
+        <div class="signup-question">New player?</div>
+        <input class="signup-button" type="button" value="Sign up" onclick="toggleSignUp()">
+      </div>
+
+      <div id="signup-form" style="display: none">
+        <form class="login-form">
+          Sign up
+          <input id="emailAddress" type="email" placeholder="Email address" spellcheck="false">
+          <input class="username" placeholder="Choose a username" spellcheck="false" maxlength="20"> Choose a password:
+          <input class="userPassword" type="password">
+          <input type="submit" value="Sign up" class="signup-button">
+        </form>
+        <hr>
+        <div class="signup-question">Already have an account?</div>
+        <input class="login-button" type="button" value="Log in" onclick="toggleSignUp()">
+      </div>
+
     </div>
   </div>
   <canvas id="game" />
   <script src="main.js"></script>
+  <script type="text/javascript">
+    function toggleSignUp() {
+      let x = document.getElementById("signup-form");
+      let y = document.getElementById("login-form");
+
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        y.style.display = "none";
+      } else {
+        x.style.display = "none";
+        y.style.display = "block";
+      }
+    } 
+  </script>
 </body>
 
 </html>
