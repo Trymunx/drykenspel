@@ -15,9 +15,9 @@
       <div id="welcome-message">Welcome to Drykenspel</div>
 
       <div id="login-div" class="login-form">
-        <form class="login-form">
-          <input autocomplete="email" placeholder="Email address" spellcheck="false">
-          <input type="password" autocomplete="current-password">
+        <form id="login-form" class="login-form">
+          <input name="email" id="login-email" type="email" autocomplete="email" placeholder="Email address" spellcheck="false">
+          <input name="password" id="login-password" type="password" autocomplete="current-password">
           <a href="https:google.com/search?q=Define+unlucky" id="forgot-password">Forgotten your password?</a>
           <input type="submit" value="Login" class="login-button">
         </form>
@@ -27,11 +27,11 @@
       </div>
 
       <div id="signup-div" class="login-form" style="display: none">
-        <form class="login-form">
+        <form id="signup-form" class="login-form">
           Sign up
-          <input name="email" id="emailAddress" type="email" placeholder="Email address" spellcheck="false">
-          <input name="display-name" placeholder="Choose a display name" spellcheck="false" maxlength="20">
-          <input name="password" type="password" autocomplete="new-password" placeholder="Choose a password">
+          <input name="email" id="signup-email" type="email" placeholder="Email address" spellcheck="false">
+          <input name="display-name" id="display-name" placeholder="Choose a display name" spellcheck="false" maxlength="20">
+          <input name="password" id="signup-password" type="password" autocomplete="new-password" placeholder="Choose a password">
           <input type="submit" value="Sign up" class="signup-button">
         </form>
         <hr>

@@ -29,7 +29,7 @@ firebase.initializeApp({
 });
 
 document.getElementById("game").addEventListener("click", () => {
-  if(firebase.auth().currentUser) {
+  if (firebase.auth().currentUser) {
     console.log("LOGGING OUT");
     firebase.auth().signOut();
   } else {
@@ -41,7 +41,7 @@ document.getElementById("game").addEventListener("click", () => {
 let client = null;
 
 firebase.auth().onAuthStateChanged((user) => {
-  if(user) {
+  if (user) {
     client = new Client(document.getElementById("game"));
     client.gameBus.on("connected", (data) => {
       console.log("Client connected to server: ", data);
@@ -58,7 +58,7 @@ firebase.auth().onAuthStateChanged((user) => {
     ctx.fillStyle = "red";
     ctx.fillText("Logged in as " + user.email, 10, (canvas.height + size) / 2);
   } else {
-    if(client) {
+    if (client) {
       client.close();
     }
     let canvas = document.getElementById("game");
@@ -71,4 +71,29 @@ firebase.auth().onAuthStateChanged((user) => {
     ctx.fillText("Log in to continue!", 10, (canvas.height + size) / 2);
     //LOGGED OUT!
   }
+});
+
+function getElVal(el) {
+  return document.getElementById(el).value;
+}
+
+document.getElementById("login-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  console.log("Logging in");
+
+  let email = getElVal("login-email");
+  let password = getElVal("login-password");
+
+  signIn(email, password);
+});
+
+document.getElementById("signup-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  console.log("Signing up");
+
+  let email = getElVal("signup-email");
+  let displayName = getElVal("display-name");
+  let password = getElVal("signup-password");
+
+  signUp(email, displayName, password);
 });
