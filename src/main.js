@@ -32,9 +32,6 @@ document.getElementById("game").addEventListener("click", () => {
   if (firebase.auth().currentUser) {
     console.log("LOGGING OUT");
     firebase.auth().signOut();
-  } else {
-    console.log("LOGGING IN:alpvax@netscape.net");
-    signIn("alpvax@netscape.net", "password");
   }
 });
 
@@ -56,7 +53,7 @@ firebase.auth().onAuthStateChanged((user) => {
     let size = canvas.height * 0.05;
     ctx.font = size + "px Arial";
     ctx.fillStyle = "red";
-    ctx.fillText("Logged in as " + user.email, 10, (canvas.height + size) / 2);
+    ctx.fillText("Logged in as " + user.email + " (" + user.displayName + ")", 10, (canvas.height + size) / 6);
   } else {
     if (client) {
       client.close();
@@ -68,7 +65,7 @@ firebase.auth().onAuthStateChanged((user) => {
     let size = canvas.height * 0.1;
     ctx.font = size + "px Arial";
     ctx.fillStyle = "red";
-    ctx.fillText("Log in to continue!", 10, (canvas.height + size) / 2);
+    ctx.fillText("Log in to continue!", 10, (canvas.height + size) / 6);
     //LOGGED OUT!
   }
 });
@@ -79,7 +76,6 @@ function getElVal(el) {
 
 document.getElementById("login-form").addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log("Logging in");
 
   let email = getElVal("login-email");
   let password = getElVal("login-password");
@@ -89,7 +85,6 @@ document.getElementById("login-form").addEventListener("submit", (e) => {
 
 document.getElementById("signup-form").addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log("Signing up");
 
   let email = getElVal("signup-email");
   let displayName = getElVal("display-name");
