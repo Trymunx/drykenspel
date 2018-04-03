@@ -18,7 +18,7 @@ new Vue({
 //Initialise firebase
 import "firebase/auth"; //Add Authentication to namespace
 import "firebase/firestore"; //Add Firestore to namespace
-import Client from "./client";
+import Client, {signUp, signIn} from "./client";
 
 (function setupCanvas() {
   const gameCanvas = document.getElementById("game");
@@ -51,7 +51,7 @@ document.getElementById("game").addEventListener("click", () => {
     firebase.auth().signOut();
   } else {
     console.log("LOGGING IN:alpvax@netscape.net");
-    firebase.auth().signInWithEmailAndPassword("alpvax@netscape.net", "password");
+    signIn("alpvax@netscape.net", "password");
   }
 });
 
