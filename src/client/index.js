@@ -1,56 +1,32 @@
-import EventEmitter from "events";
-import Scene from "./render/scene";
-import ServerWorker from "worker-loader!./serverWorker.js";
+import GameClient from "./gameclient";
 
-export default class Client {
-  constructor(canvasElement) {
-    this.canvas = canvasElement;
-    this.server = null;
-    this.gameBus = new EventEmitter();
-    this.gameBus.on("scene", (sceneData) => this.setScene(new Scene(sceneData)));
-    this.setScene(/*TODO: main menu scene*/);
-  }
-  setScene(scene) {
-    this.scene = scene;
-    console.log("Scene: ", this.scene);
-  }
-  start() {
-    let ctx = this.canvas.getContext("2d");
-    const loop = (timeStamp) => {
-      if(this.scene) {
-        this.scene.renderScene(ctx, timeStamp);
-      }
-      requestAnimationFrame(loop);
-    };
-    loop(performance.now());
-  }
-  newLocalServer() {
-    let serverWorker = new ServerWorker();
-    serverWorker.onmessage = (e) => {
-      let {type, data} = e.data;
-      if(type == "connect") {
-        this.gameBus.emit("connected", data);
-      } else {
-        console.log(type, data);
-      }
-    };
-    let connectionData = {
-      //TODO: Player name? etc.
-    };
-    this.gameBus.emit("preConnect", connectionData);//Add data to send to server
-    serverWorker.postMessage({type: "connect", data: connectionData});
+export default GameClient;
 
-    //TODO: set server
-    this.server = serverWorker;
-  }
-  connectToServer() {
-    //TODO:this.server =
-  }
-  disconnect() {
-    this.server.terminate();
-    //TODO: disconnect from server
-  }
-  close() {
-    this.disconnect();
-  }
+export function signUp(email, displayName, password) {
+  firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(email, password)
+    .then(({user}) => user.updateProfile({ displayName: displayName }))
+    .then(() => {
+      let user = firebase.auth().currentUser;
+      alert("Created account " + user.email + " with display name " + user.displayName);
+      let db = firebase.firestore();
+      db.collection("users").doc(user.displayName).set({
+        id: user.uid,
+        name: user.displayName
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("Sign up failed.\n" + error.message);
+    });
+}
+
+export function signIn(email, password) {
+  firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
+    .then(({user}) => {
+      alert("Logged in as " + user.displayName + " with email " + user.email);
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("Login failed.\n" + error.message);
+    });
 }
