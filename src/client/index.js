@@ -2,7 +2,30 @@ import GameClient from "./gameclient";
 
 export default GameClient;
 
+var funcSignUp;
 export function signUp(email, displayName, password) {
+  if(!funcSignUp) {
+    funcSignUp = firebase.functions().httpsCallable("signUp");
+  }
+  funcSignUp({email, displayName, password});
+}
+
+var funcGetEmail;
+export function signIn(email, password) {
+  if(!funcGetEmail) {
+    funcGetEmail = firebase.functions().httpsCallable("getEmail");
+  }
+  firebase.auth().signInAndRetrieveDataWithEmailAndPassword(funcGetEmail({username: email, password}), password)
+    .then(({user}) => {
+      alert("Logged in as " + user.displayName + " with email " + user.email);
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("Login failed.\n" + error.message);
+    });
+}
+
+/*export function signUp(email, displayName, password) {
   firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(email, password)
     .then(({user}) => user.updateProfile({ displayName: displayName }))
     .then(() => {
@@ -29,4 +52,4 @@ export function signIn(email, password) {
       console.log(error);
       alert("Login failed.\n" + error.message);
     });
-}
+}*/
