@@ -1,6 +1,7 @@
 //import * as firebase from "firebase/app"; //Import namespace
 import "firebase/auth"; //Add Authentication to namespace
 import "firebase/firestore"; //Add Firestore to namespace
+import "firebase/functions"; //Add Functions to namespace
 import Client, {signUp, signIn} from "./client";
 
 (function setupCanvas() {
